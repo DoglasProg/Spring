@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.curso.Services.exception.ObjectNotFoundException;
 import com.spring.curso.domain.Categoria;
 import com.spring.curso.repositories.CategoriaRepository;
 
@@ -18,7 +19,8 @@ public class CategoriaService {
 	public Categoria buscar(Integer id) {
 		//Optional container para encapsular Categoria, solução para erro null
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id:" + id + ", Tipo:" + Categoria.class.getName()));
 		
 	}
 }
