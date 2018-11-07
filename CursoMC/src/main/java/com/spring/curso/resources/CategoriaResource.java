@@ -1,21 +1,24 @@
 package com.spring.curso.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.spring.curso.Services.CategoriaService;
 import com.spring.curso.domain.Categoria;
 
 @RestController
 @RequestMapping(value="/categorias")
-public class CateegoriaResource {
+public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
@@ -25,6 +28,17 @@ public class CateegoriaResource {
 		//anotação para indicar que recebe um argumento
 		Categoria obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Categoria obj){
+		obj = service.insert(obj);
+		//por padão deve-se retornar uma URI em operação de post, essa operaçaço pega o caminho da requisição
+		//e adiciona o id do novo objeto para retornar a URI
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(obj.getId()).toUri();
+		//created já retorna o codigo 201
+		return ResponseEntity.created(uri).build();
 	}
 
 }
