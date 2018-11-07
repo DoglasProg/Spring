@@ -23,7 +23,6 @@ public class Categoria implements Serializable {
 	
 	//mapeamento feito em cima do atributo 'categorias', feito do outro lado da relação 
 	//JsonManagedReference - referencia gerenciada pelo Json
-	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
