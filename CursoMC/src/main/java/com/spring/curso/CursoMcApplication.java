@@ -1,5 +1,6 @@
 package com.spring.curso;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -13,6 +14,7 @@ import com.spring.curso.domain.Cidade;
 import com.spring.curso.domain.Cliente;
 import com.spring.curso.domain.Endereco;
 import com.spring.curso.domain.Estado;
+import com.spring.curso.domain.ItemPedido;
 import com.spring.curso.domain.Pagamento;
 import com.spring.curso.domain.PagamentoComBoleto;
 import com.spring.curso.domain.PagamentoComCartao;
@@ -25,6 +27,7 @@ import com.spring.curso.repositories.CidadeRepository;
 import com.spring.curso.repositories.ClienteRepository;
 import com.spring.curso.repositories.EnderecoRepository;
 import com.spring.curso.repositories.EstadoRepository;
+import com.spring.curso.repositories.ItemPedidoRepository;
 import com.spring.curso.repositories.PagamentoRepository;
 import com.spring.curso.repositories.PedidoRepository;
 import com.spring.curso.repositories.ProdutoRepository;
@@ -55,6 +58,9 @@ public class CursoMcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoMcApplication.class, args);
@@ -121,7 +127,18 @@ public class CursoMcApplication implements CommandLineRunner{
 		 pedidoRepository.saveAll(Arrays.asList(ped1, ped2)); 
 		 pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2)); 
 		 
+		 ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+		 ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.00);
+		 ItemPedido ip3 = new ItemPedido(ped1, p2, 100.0, 1, 800.00);
+		 
+		 ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		 ped2.getItens().addAll(Arrays.asList(ip3));
 		
+		 p1.getItens().addAll(Arrays.asList(ip1));
+		 p2.getItens().addAll(Arrays.asList(ip3));
+		 p3.getItens().addAll(Arrays.asList(ip2));
+		 
+		 itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 
 	}
 }
