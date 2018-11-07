@@ -15,7 +15,7 @@ import com.spring.curso.domain.Categoria;
 
 @RestController
 @RequestMapping(value="/categorias")
-public class CateegoriaResouce {
+public class CateegoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
