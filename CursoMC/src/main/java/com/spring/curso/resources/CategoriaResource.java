@@ -22,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		//anotação para indicar que recebe um argumento
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
@@ -44,6 +44,12 @@ public class CategoriaResource {
 		obj.setId(id);
 		obj = service.update(obj);
 		//conteudoa vazio
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
