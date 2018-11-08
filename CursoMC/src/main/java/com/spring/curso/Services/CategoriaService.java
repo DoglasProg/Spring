@@ -16,7 +16,7 @@ public class CategoriaService {
 	private CategoriaRepository repo;
 	//a dependência vai ser automaticamente instanciada pelo Spring
 	
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		//Optional container para encapsular Categoria, solução para erro null
 		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -25,6 +25,11 @@ public class CategoriaService {
 	
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
+		return repo.save(obj);
+	}
+
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
 		return repo.save(obj);
 	}
 }
