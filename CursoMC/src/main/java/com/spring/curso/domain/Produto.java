@@ -28,7 +28,6 @@ public class Produto implements Serializable{
 	private String nome;
 	private double preco;
 	
-	//@JsonBackReference indica que os objetos já foram buscados do outro lado da associação 
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
