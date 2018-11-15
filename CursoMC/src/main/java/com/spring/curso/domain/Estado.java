@@ -22,7 +22,7 @@ public class Estado implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer Id;
-	private String noem;
+	private String nome;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="estado")
@@ -32,10 +32,10 @@ public class Estado implements Serializable{
 		
 	}
 
-	public Estado(Integer id, String noem) {
+	public Estado(Integer id, String nome) {
 		super();
 		Id = id;
-		this.noem = noem;
+		this.nome = nome;
 	}
 
 	public Integer getId() {
@@ -46,12 +46,12 @@ public class Estado implements Serializable{
 		Id = id;
 	}
 
-	public String getNoem() {
-		return noem;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNoem(String noem) {
-		this.noem = noem;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public List<Cidade> getCidades() {
